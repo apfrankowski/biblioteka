@@ -1,9 +1,10 @@
 <?php
 
-namespace app\controllers;
+namespace frontend\controllers;
 
 use Yii;
 use app\models\Rents;
+use app\models\Books;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -62,7 +63,13 @@ class RentsController extends Controller
     {
         $model = new Rents();
 
+        $model->user_id = Yii::$app->user->getId();
+        $model->rent_date = date('Y-m-d', time());
+        $model->prev_date = date('Y-m-d', strtotime('+ 2 weeks', time()));
+        $model->status = 'rented';
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $book = Books::findOne($model->book_id)->updateStatus($model->status);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -118,4 +125,5 @@ class RentsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

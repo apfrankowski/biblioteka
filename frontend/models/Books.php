@@ -32,7 +32,7 @@ class Books extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'author', 'isbn', 'created_at', 'updated_at'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['title', 'author', 'isbn'], 'string', 'max' => 255]
         ];
     }
@@ -51,5 +51,11 @@ class Books extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function updateStatus($status) 
+    {
+        $this->status = $status;
+        $this->save();
     }
 }
