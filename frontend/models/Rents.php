@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use common\models\User;
 /**
  * This is the model class for table "rents".
  *
@@ -45,8 +45,8 @@ class Rents extends \yii\db\ActiveRecord
             'id' => 'ID',
             'book_id' => 'Book ID',
             'user_id' => 'User ID',
-            'rent_date' => 'Rent Date',
-            'prev_date' => 'Prev Date',
+            'rent_date' => 'Data wypożyczenia',
+            'prev_date' => 'Data zwrotu',
             'status' => 'Status',
         ];
     }
@@ -57,6 +57,15 @@ class Rents extends \yii\db\ActiveRecord
      */
     public function getBooks()
     {
-        return $this->hasOne(Books::className(), ['book_id' => 'id']);
+        return $this->hasOne(Books::className(), ['id' => 'book_id']);
+    }
+
+    /**
+     * Connects model with user
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

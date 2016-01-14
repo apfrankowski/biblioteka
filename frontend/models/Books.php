@@ -44,12 +44,12 @@ class Books extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'author' => 'Author',
+            'title' => 'Tytuł',
+            'author' => 'Autor',
             'isbn' => 'Isbn',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Utworzona',
+            'updated_at' => 'Zaktualizowana',
         ];
     }
 

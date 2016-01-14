@@ -38,18 +38,12 @@ class RentsController extends Controller
     }
 
     /**
-     * Lists all Rents models.
+     * Redirect home.
      * @return mixed
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Rents::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->goHome();
     }
 
     /**
