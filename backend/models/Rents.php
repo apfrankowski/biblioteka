@@ -32,7 +32,7 @@ class Rents extends \yii\db\ActiveRecord
         return [
             [['book_id', 'user_id'], 'required'],
             [['book_id', 'user_id', 'status'], 'integer'],
-            [['rent_date', 'prev_date'], 'safe']
+            [['user_id', 'book_id', 'rent_date', 'prev_date'], 'safe']
         ];
     }
 
@@ -49,5 +49,21 @@ class Rents extends \yii\db\ActiveRecord
             'prev_date' => 'Prev Date',
             'status' => 'Status',
         ];
+    }
+    /**
+     * Connects model with books
+     * @return mixed
+     */
+    public function getBooks()
+    {
+        return $this->hasOne(Books::className(), ['id' => 'book_id']);
+    }
+    /**
+     * Connects model with users
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

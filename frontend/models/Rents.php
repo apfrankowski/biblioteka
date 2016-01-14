@@ -30,8 +30,8 @@ class Rents extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['book_id', 'user_id'], 'required'],
-            [['book_id', 'user_id'], 'integer'],
+            [['book_id'], 'required'],
+            [['book_id'], 'integer'],
             [['rent_date', 'prev_date'], 'safe']
         ];
     }

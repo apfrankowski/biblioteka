@@ -12,6 +12,9 @@ use app\models\Rents;
  */
 class RentsSearch extends Rents
 {
+
+    public $book_id;
+    public $user_id;
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class RentsSearch extends Rents
     {
         return [
             [['id', 'book_id', 'user_id', 'status'], 'integer'],
-            [['rent_date', 'prev_date'], 'safe'],
+            [['book_id', 'user_id','rent_date', 'prev_date'], 'safe'],
         ];
     }
 

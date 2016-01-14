@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\models\User;
+use app\models\Books;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RentsSearch */
@@ -25,12 +27,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'book_id',
-            'user_id',
+            [   
+            'attribute' => 'id',
+                'value' => 'books.title'
+            ],
+            [   
+            'attribute' => 'id',
+                'value' => 'user.username'
+            ],
             'rent_date',
             'prev_date',
-            // 'status',
+            'status',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

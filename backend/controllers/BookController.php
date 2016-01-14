@@ -8,6 +8,7 @@ use app\models\BookSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * BookController implements the CRUD actions for Books model.
@@ -22,6 +23,12 @@ class BookController extends Controller
                 'actions' => [
                     'delete' => ['post'],
                 ],
+            ],
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => time(),
             ],
         ];
     }
@@ -61,6 +68,9 @@ class BookController extends Controller
     public function actionCreate()
     {
         $model = new Books();
+
+
+        $model->status = 'available';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

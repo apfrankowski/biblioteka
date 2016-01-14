@@ -30,7 +30,30 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+            ['class' => 'yii\grid\ActionColumn', 
+            'buttons' => [
+                'rent' => function ($url, $searchModel) {
+                    return Html::a(
+                        '<span class="glyphicon glyphicon-export"></span>',
+                        ['rents/create', 'book_id' => $searchModel->id], 
+                        [
+                            'title' => 'Wypożycz',
+                            'data-pjax' => '0',
+                        ]
+                    );
+                },
+                'revert' => function ($url, $searchModel) {
+                    return Html::a(
+                        '<span class="glyphicon glyphicon-import"></span>',
+                        ['rents/close', 'book_id' => $searchModel->id], 
+                        [
+                            'title' => 'Zwróć',
+                            'data-pjax' => '0',
+                        ]
+                    );
+                }
+            ],
+            'template' => '{view} {rent} {revert}'],
         ],
     ]); ?>
 
