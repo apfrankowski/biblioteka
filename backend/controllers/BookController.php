@@ -5,8 +5,10 @@ namespace backend\controllers;
 use Yii;
 use app\models\Books;
 use app\models\BookSearch;
+use app\models\UploadForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\behaviors\TimestampBehavior;
 
@@ -68,17 +70,22 @@ class BookController extends Controller
     public function actionCreate()
     {
         $model = new Books();
+        $upload = new UploadForm();
+        $upload->imageFile = UploadedFile::getInstance($model, 'img');
+        if ($upload->upload()) {
 
+            $model->status = 'available';
 
-        $model->status = 'available';
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post())) {
+                $model->img = 'images/' . $upload->imageFile->baseName . '.' . $upload->imageFile->extension;
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**

@@ -18,6 +18,11 @@ use Yii;
 class Books extends \yii\db\ActiveRecord
 {
     /**
+     * @var UploadedFile
+     */
+    public $imageFile;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
@@ -32,7 +37,8 @@ class Books extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'author', 'isbn'], 'required'],
-            [['title', 'author', 'isbn', 'status'], 'string', 'max' => 255]
+            [['title', 'author', 'isbn', 'status'], 'string', 'max' => 255],
+            [['img'], 'safe']
         ];
     }
 
@@ -49,6 +55,7 @@ class Books extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'img' => 'Miniatura'
         ];
     }
 }

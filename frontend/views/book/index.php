@@ -25,7 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         },
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'image',
+                'format' => 'html',
+                'value' => function($searchModel) {
+                    return Html::img('http://frontend.dev/'.$searchModel->img, ['width'=>'70px']);
+                }
+
+            ],
 
             'title',
             'author',
